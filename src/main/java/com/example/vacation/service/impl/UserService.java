@@ -3,6 +3,7 @@ package com.example.vacation.service.impl;
 import com.example.vacation.dto.request.CreateAdminRequest;
 import com.example.vacation.dto.request.CreateUserRequest;
 import com.example.vacation.dto.request.LoginRequest;
+import com.example.vacation.dto.response.LoginResponse;
 import com.example.vacation.dto.response.UserResponse;
 import com.example.vacation.entity.User;
 import com.example.vacation.repository.IUserRepository;
@@ -21,9 +22,12 @@ public class UserService implements IUserService {
 
     private final PasswordEncoder passwordEncoder;
 
-    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder) {
+    private final JwtTokenService jwtTokenService;
+
+    public UserService(IUserRepository userRepository, PasswordEncoder passwordEncoder, JwtTokenService jwtTokenService) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+        this.jwtTokenService = jwtTokenService;
     }
 
     @Override
@@ -63,7 +67,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public UserResponse login(LoginRequest loginRequest) throws Exception {
+    public LoginResponse login(LoginRequest loginRequest) throws Exception {
         User user = userRepository.findUserByUsername(loginRequest.getUsername());
         if(user == null){
             throw new Exception("User don't exist");
@@ -72,7 +76,10 @@ public class UserService implements IUserService {
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getPassword())){
             throw new Exception("Wrong password");
         }
-        return mapUserToUserResponse(user);
+
+        String token = jwtTokenService.generateToken(user.getId().toString());
+
+        return returnLoginResponse(user, token);
     }
 
     @Override
@@ -106,5 +113,13 @@ public class UserService implements IUserService {
         userResponse.setUsername(user.getUsername());
 
         return userResponse;
+    }
+
+    private LoginResponse returnLoginResponse(User user , String token){
+        LoginResponse loginResponse = new LoginResponse();
+        UserResponse userResponse = mapUserToUserResponse(user);
+        loginResponse.setUser(userResponse);
+        loginResponse.setToken(token);
+        return  loginResponse;
     }
 }
