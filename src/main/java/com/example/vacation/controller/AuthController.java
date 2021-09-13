@@ -1,6 +1,7 @@
 package com.example.vacation.controller;
 
 import com.example.vacation.dto.request.LoginRequest;
+import com.example.vacation.dto.response.LoginResponse;
 import com.example.vacation.dto.response.UserResponse;
 import com.example.vacation.service.IUserService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public UserResponse login(@RequestBody LoginRequest loginRequest)throws Exception{
+    public LoginResponse login(@RequestBody LoginRequest loginRequest)throws Exception{
         return userService.login(loginRequest);
     }
 }
