@@ -5,6 +5,8 @@ import com.example.vacation.dto.request.CreateUserRequest;
 import com.example.vacation.dto.request.LoginRequest;
 import com.example.vacation.dto.response.LoginResponse;
 import com.example.vacation.dto.response.UserResponse;
+import com.example.vacation.dto.response.VacationResponse;
+import com.example.vacation.entity.Vacation;
 
 import java.util.List;
 

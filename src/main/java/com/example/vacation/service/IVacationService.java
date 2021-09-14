@@ -9,7 +9,11 @@ public interface IVacationService {
 
     VacationResponse getVacation (Long id);
 
-    VacationResponse createVacation (CreateVacationRequest request) throws Exception;
+    VacationResponse createVacation (CreateVacationRequest request, long id) throws Exception;
 
     List<VacationResponse> getAllVacations();
+
+    List<VacationResponse> getAllVacationsByUser(long id);
+
+    // List<VacationResponse> getAllVacationByDate(String date);
 }
