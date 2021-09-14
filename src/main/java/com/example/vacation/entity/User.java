@@ -6,10 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,4 +38,7 @@ public class User extends BaseEntity {
 
     @Column
     private String password;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true )
+    private List<Vacation> vacations = new ArrayList<>();
 }
