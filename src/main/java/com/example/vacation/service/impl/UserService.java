@@ -95,6 +95,7 @@ public class UserService implements IUserService {
         user.setRoll(UserType.EMPLOYEE);
         user.setUsername(request.getUsername());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setNumberOfVacationDay(request.getNumberOfVacationDay());
         try{
          User savedUser =  userRepository.save(user);
          return mapUserToUserResponse(savedUser);
