@@ -28,7 +28,7 @@ public class VacationController {
         return vacationService.getAllVacations();
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("/user/{id}")
     public VacationResponse createVacation(@RequestBody CreateVacationRequest request, @PathVariable Long id) throws Exception{
         return vacationService.createVacation(request, id);
     }

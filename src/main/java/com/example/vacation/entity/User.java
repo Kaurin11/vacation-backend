@@ -41,4 +41,8 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true )
     private List<Vacation> vacations = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL , orphanRemoval = true )
+    private List<VacationPerYear> vacationPerYears = new ArrayList<>();
+
 }

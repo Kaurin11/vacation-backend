@@ -6,7 +6,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.util.Date;
 
 @Data
-public class VacationByDate {
+public class VacationByDateRequest {
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
